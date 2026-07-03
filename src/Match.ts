@@ -90,10 +90,13 @@ export class Match {
 
     // Executes one attacking move
     private playTurn(): void {
-        // Player runs
-        this.currentBallHolder.run();
-        this.commentary.running(this.currentBallHolder);
-        this.sleep(1500);
+        // Player runs except GoalKeeper
+
+        if(this.currentBallHolder.getRole() !== PlayerRole.GOALKEEPER) {
+            this.currentBallHolder.run();
+            this.commentary.running(this.currentBallHolder);
+            this.sleep(1500);
+        }
 
         // Player performs special action
         this.currentBallHolder.performSpecialAction();
