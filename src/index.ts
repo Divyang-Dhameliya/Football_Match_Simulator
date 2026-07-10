@@ -4,10 +4,10 @@ import { ScoreBoard } from "./ScoreBoard.js";
 import { MatchStatistics } from "./MatchStatistics.js";
 import { HindiCommentary } from "./HindiCommentary.js";
 
-import { Goalkeeper } from "./players/GoalKeeper.js";
+import { Goalkeeper } from "./players/Goalkeeper.js";
 import { Defender } from "./players/Defender.js";
 import { Midfielder } from "./players/Midfielder.js";
-import { Striker } from "./players/Stricker.js";
+import { Striker } from "./players/Striker.js";
 
 const teamJethalal = new Team("Team Jethalal");
 const teamBhide = new Team("Team Bhide");

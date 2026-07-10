@@ -1,6 +1,6 @@
 import type { ICommentary } from "./interfaces/ICommentary.js";
 import { Player } from "./players/Player.js";
-import { Goalkeeper } from "./players/GoalKeeper.js";
+import { Goalkeeper } from "./players/Goalkeeper.js";
 import { Team } from "./Team.js";
 import { ScoreBoard } from "./ScoreBoard.js";
 import { MatchStatistics } from "./MatchStatistics.js";

@@ -1,6 +1,7 @@
 import { Player } from "./players/Player.js";
-import { Goalkeeper } from "./players/GoalKeeper.js";
+
 import { PlayerRole } from "./enums/PlayerRole.js";
+import { Goalkeeper } from "./players/Goalkeeper.js";
 
 export class Team {
 
