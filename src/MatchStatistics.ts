@@ -1,9 +1,11 @@
+import { ZER0_VALUE } from "./constants.js";
+
 export class MatchStatistics {
 
-    private goals: number = 0;
-    private shots: number = 0;
-    private passes: number = 0;
-    private saves: number = 0;
+    private goals: number = ZER0_VALUE;
+    private shots: number = ZER0_VALUE;
+    private passes: number = ZER0_VALUE;
+    private saves: number = ZER0_VALUE;
 
     increaseGoals(): void {
         this.goals++;

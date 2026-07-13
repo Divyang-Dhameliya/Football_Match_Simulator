@@ -5,6 +5,7 @@ import { Team } from "./Team.js";
 import { ScoreBoard } from "./ScoreBoard.js";
 import { MatchStatistics } from "./MatchStatistics.js";
 import { PlayerRole } from "./enums/PlayerRole.js";
+import { DEFAULT_MATCH_DURATION, DURATION_CALCULATION_DIVISOR, FIFTY_VALUE, GOAL_CHANCE_LOWER_BOUND_VALUE, GOAL_CHANCE_UPPER_BOUND_VALUE, HUNDRED_VALUE, INCREMENT_BY_ONE, MID_PROBABILITY_VALUE, SLEEP_DURATION_MS } from "./constants.js";
 
 export class Match {
 
@@ -19,7 +20,7 @@ export class Match {
         private commentary: ICommentary,
         private scoreBoard: ScoreBoard,
         private statistics: MatchStatistics,
-        matchDuration: number = 60
+        matchDuration: number = DEFAULT_MATCH_DURATION
     ) {
         this.matchDuration = matchDuration;
     }
@@ -30,7 +31,7 @@ export class Match {
             this.homeTeam,
             this.awayTeam
         );
-        this.sleep(1500);
+        this.sleep(SLEEP_DURATION_MS);
 
         const startingTeam = this.coinToss();
 
@@ -39,7 +40,7 @@ export class Match {
         const startTime = Date.now();
 
         while (
-            (Date.now() - startTime) / 1000 <
+            (Date.now() - startTime) / DURATION_CALCULATION_DIVISOR <
             this.matchDuration
         ) {
 
@@ -58,7 +59,7 @@ export class Match {
         const random = Math.random();
 
         const tossWinner =
-            random < 0.5
+            random < MID_PROBABILITY_VALUE
                 ? this.homeTeam
                 : this.awayTeam;
 
@@ -85,7 +86,7 @@ export class Match {
             team,
             this.currentBallHolder
         );
-        this.sleep(1500);
+        this.sleep(SLEEP_DURATION_MS);
     }
 
     // Executes one attacking move
@@ -95,13 +96,13 @@ export class Match {
         if(this.currentBallHolder.getRole() !== PlayerRole.GOALKEEPER) {
             this.currentBallHolder.run();
             this.commentary.running(this.currentBallHolder);
-            this.sleep(1500);
+            this.sleep(SLEEP_DURATION_MS);
         }
 
         // Player performs special action
         this.currentBallHolder.performSpecialAction();
         this.commentary.specialAction(this.currentBallHolder);
-        this.sleep(1500);
+        this.sleep(SLEEP_DURATION_MS);
 
         // If striker, attempt a shot
         if (this.currentBallHolder.getRole() === PlayerRole.STRIKER) {
@@ -118,7 +119,7 @@ export class Match {
             this.currentBallHolder,
             receiver
         );
-        this.sleep(1500);
+        this.sleep(SLEEP_DURATION_MS);
 
         this.statistics.increasePasses();
 
@@ -148,7 +149,7 @@ export class Match {
         this.statistics.increaseShots();
 
         this.commentary.shooting(this.currentBallHolder);
-        this.sleep(1500);
+        this.sleep(SLEEP_DURATION_MS);
 
         const defendingTeam =
             this.attackingTeam === this.homeTeam
@@ -177,11 +178,11 @@ export class Match {
         let goalChance =
             striker.getShootingSkill()
             - goalkeeper.getSavingSkill()
-            + 50;
+            + FIFTY_VALUE;
 
-        goalChance = Math.max(20, Math.min(80, goalChance));
+        goalChance = Math.max(GOAL_CHANCE_LOWER_BOUND_VALUE, Math.min(GOAL_CHANCE_UPPER_BOUND_VALUE, goalChance));
 
-        const randomNumber = Math.floor(Math.random() * 100) + 1;
+        const randomNumber = Math.floor(Math.random() * HUNDRED_VALUE) + INCREMENT_BY_ONE;
 
         return randomNumber <= goalChance;
 
@@ -192,12 +193,12 @@ export class Match {
         this.statistics.increaseGoals();
 
         this.commentary.goal(this.currentBallHolder);
-        this.sleep(1500);
+        this.sleep(SLEEP_DURATION_MS);
 
         this.currentBallHolder.celebrate();
 
         this.commentary.celebration(this.currentBallHolder);
-        this.sleep(1500);
+        this.sleep(SLEEP_DURATION_MS);
 
         if (scoringTeam === this.homeTeam) {
             this.scoreBoard.goalForHomeTeam();
@@ -223,7 +224,7 @@ export class Match {
         this.statistics.increaseSaves();
 
         this.commentary.save(goalkeeper);
-        this.sleep(1500);
+        this.sleep(SLEEP_DURATION_MS);
 
         this.attackingTeam = defendingTeam;
 
@@ -247,12 +248,12 @@ export class Match {
         if (homeGoals > awayGoals) {
 
             this.commentary.winner(this.homeTeam);
-            this.sleep(1500);
+            this.sleep(SLEEP_DURATION_MS);
 
         } else if (awayGoals > homeGoals) {
 
             this.commentary.winner(this.awayTeam);
-            this.sleep(1500);
+            this.sleep(SLEEP_DURATION_MS);
 
         } else {
 

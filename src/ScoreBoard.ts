@@ -1,7 +1,9 @@
+import { ZER0_VALUE } from "./constants.js";
+
 export class ScoreBoard {
 
-    private homeGoals: number = 0;
-    private awayGoals: number = 0;
+    private homeGoals: number = ZER0_VALUE;
+    private awayGoals: number = ZER0_VALUE;
 
     goalForHomeTeam(): void {
         this.homeGoals++;

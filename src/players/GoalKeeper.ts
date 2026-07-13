@@ -1,5 +1,6 @@
 import { Player } from "./Player.js";
 import { PlayerRole } from "../enums/PlayerRole.js";
+import { ZER0_VALUE } from "../constants.js";
 
 export class Goalkeeper extends Player {
     private saving: number;
@@ -17,7 +18,7 @@ export class Goalkeeper extends Player {
             name,
             jerseyNumber,
             PlayerRole.GOALKEEPER,
-            0,
+            ZER0_VALUE,
             passing,
             running,
         );

@@ -2,6 +2,7 @@ import { Player } from "./players/Player.js";
 
 import { PlayerRole } from "./enums/PlayerRole.js";
 import { Goalkeeper } from "./players/Goalkeeper.js";
+import { ZER0_VALUE } from "./constants.js";
 
 export class Team {
 
@@ -63,7 +64,7 @@ export class Team {
             );
         }
 
-        if(filteredPlayers.length === 0) {
+        if(filteredPlayers.length === ZER0_VALUE) {
             throw new Error(
                 `${this.name} does not have any ${role}.`
             );

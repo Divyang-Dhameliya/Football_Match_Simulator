@@ -8,6 +8,7 @@ import { Goalkeeper } from "./players/Goalkeeper.js";
 import { Defender } from "./players/Defender.js";
 import { Midfielder } from "./players/Midfielder.js";
 import { Striker } from "./players/Striker.js";
+import { MATCH_DURATION } from "./constants.js";
 
 const teamJethalal = new Team("Team Jethalal");
 const teamBhide = new Team("Team Bhide");
@@ -120,14 +121,13 @@ const statistics = new MatchStatistics();
 
 const commentary = new HindiCommentary();
 
-// Match Duration = 60 seconds
 const match = new Match(
     teamJethalal,
     teamBhide,
     commentary,
     scoreBoard,
     statistics,
-    60
+    MATCH_DURATION
 );
 
 // Start Match
