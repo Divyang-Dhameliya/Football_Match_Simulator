@@ -136,7 +136,7 @@ export class Match {
             Math.floor(Math.random() * allowedRoles.length)
             ];
 
-        return this.attackingTeam.getRandomPlayerByRoleExcept(
+        return this.attackingTeam.getRandomPlayerByRole(
             randomRole!,
             this.currentBallHolder
         );

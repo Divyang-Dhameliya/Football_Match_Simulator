@@ -49,32 +49,19 @@ export class Team {
     }
 
     // Returns a random player of the requested role
-    getRandomPlayerByRole(role: PlayerRole): Player {
+    getRandomPlayerByRole(role: PlayerRole, currentPlayer?: Player): Player {
 
-        const filteredPlayers = this.players.filter(
-            player => player.getRole() === role
-        );
-
-        if(filteredPlayers.length === 0) {
-            throw new Error(
-                `${this.name} does not have any ${role}.`
+        let filteredPlayers;
+        if(currentPlayer) {
+            filteredPlayers = this.players.filter(
+                player => player.getRole() === role && player !== currentPlayer
             );
         }
-
-        const randomIndex = Math.floor(
-            Math.random() * filteredPlayers.length
-        );
-
-        return filteredPlayers[randomIndex]!;
-
-    }
-
-    // Returns a random player of the requested role
-    getRandomPlayerByRoleExcept(role: PlayerRole, currentPlayer: Player): Player {
-
-        const filteredPlayers = this.players.filter(
-            player => player.getRole() === role && player !== currentPlayer
-        );
+        else {
+            filteredPlayers = this.players.filter(
+                player => player.getRole() === role
+            );
+        }
 
         if(filteredPlayers.length === 0) {
             throw new Error(
